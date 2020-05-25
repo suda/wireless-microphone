@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎙 Web Microphone</title>
+  <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/platform/platform.js" defer></script>
+  <link href="style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div x-data="root()" x-init="init" class="container">
+    <div class="segmented-control">
+      <template x-for="m in modes">
+        <div>
+          <input x-model="mode" type="radio" :value="m" :id="m" x-on:change="tabChanged($event.target.value)" />
+          <label :for="m" :class="`tab-${m}`">
+            <p x-text="m"></p>
+          </label>
+        </div>
+      </template>
+      <div :class="`segmented-control__color selected-${mode}`"></div>
+    </div>
+
+    <template x-if="mode == 'microphone'">
+      <div x-data="microphone()" class="microphone">
+        <div class="circle">
+          <input type="checkbox" x-on:change="applyStreamStatus($event.target.checked)" id="streaming" />
+          <label for="streaming">
+            <i class="material-icons">mic_none</i>
+          </label>
+          <span class="circle__back-1"></span>
+          <span class="circle__back-2"></span>
+        </div>
+        <div class="chip">
+          <div class="chip__icon">
+            <i class="material-icons" x-text="stateIcon"></i>
+          </div>
+          <template x-if="state == STATES.IDLE">
+            <p>Tap the button to start streaming</p>
+          </template>
+          <template x-if="state == STATES.CONNECTING">
+            <p>Connecting...</p>
+          </template>
+          <template x-if="state == STATES.LOOKING_FOR_RECEIVERS">
+            <p>Looking for receivers...</p>
+          </template>
+          <template x-if="state == STATES.STREAMING">
+            <p>Streaming to <strong x-text="target"></strong></p>
+          </template>
+        </div>
+      </div>
+    </template>
+    <template x-if="mode == 'speaker'">
+      <div x-data="speaker()" class="speaker">
+        <div class="circle">
+          <input type="checkbox" x-on:change="applyListenStatus($event.target.checked)" id="listening" />
+          <label for="listening">
+            <i class="material-icons">volume_up</i>
+          </label>
+          <span class="circle__back-1"></span>
+          <span class="circle__back-2"></span>
+        </div>
+        <div class="chip">
+          <div class="chip__icon">
+            <i class="material-icons" x-text="stateIcon"></i>
+          </div>
+          <template x-if="state == STATES.IDLE">
+            <p>Tap the button to listening</p>
+          </template>
+          <template x-if="state == STATES.CONNECTING">
+            <p>Connecting...</p>
+          </template>
+          <template x-if="state == STATES.LOOKING_FOR_SENDERS">
+            <p>Looking for senders...</p>
+          </template>
+          <template x-if="state == STATES.LISTENING">
+            <p>Listening from <strong x-text="source"></strong></p>
+          </template>
+        </div>
+        <audio></audio>
+      </div>
+    </template>
+  </div>
+</body>
+</html>
