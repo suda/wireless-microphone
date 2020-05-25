@@ -1,11 +1,11 @@
-<center>
+<div align="center">
   <img src="webmic.gif" alt="Screen capture" width="200" />
   <h3><a href="https://webmic.suda.pl/" target="_blank">Web Microphone</a></h3>
   <h6>Turn any device into a wireless microphone</h6>
   <a href="https://webrtc.org/" target="_blank"><img src="https://img.shields.io/badge/-webrtc-important" alt="WebRTC" /></a>
   <a href="https://ipfs.io/" target="_blank"><img src="https://img.shields.io/badge/-ipfs-informational" alt="IPFS" /></a>
   <a href="https://github.com/alpinejs/alpine" target="_blank"><img src="https://img.shields.io/badge/-alpinejs-success" alt="Alpine.js" /></a>
-</center>
+</div>
 
 ## 🎙 What is this?
 
