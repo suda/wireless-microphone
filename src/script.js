@@ -1,3 +1,7 @@
+import platform from 'platform'
+import 'alpinejs'
+import './style.css'
+
 const iceServers = [
   { urls: 'stun://stun.stunprotocol.org' },
   { urls: 'stun://stun.services.mozilla.com' }
@@ -13,13 +17,6 @@ const ipfsOptions = {
   }
 }
 
-const remotePlatform = {
-  name: '',
-  os: {
-    family: ''
-  }
-}
-
 let ipfs
 
 function root() {
@@ -28,7 +25,7 @@ function root() {
     modes: ['microphone', 'speaker'],
 
     async init() {
-      ipfs = await window.Ipfs.create(ipfsOptions)
+      ipfs = await Ipfs.create(ipfsOptions)
     },
 
     async tabChanged(tab) {
@@ -84,7 +81,7 @@ function microphone() {
           break;
       }
     },
-    
+
     applyStreamStatus(shouldStream) {
       if (shouldStream) {
         this.startStreaming()
@@ -94,7 +91,7 @@ function microphone() {
     },
     async startStreaming() {
       this.setState(STATES.CONNECTING)
-      
+
       const self = this
       try {
         localStream = await navigator.mediaDevices.getUserMedia(constraints)
@@ -239,3 +236,5 @@ function speaker() {
     }
   }
 }
+
+export { root, microphone, speaker }
