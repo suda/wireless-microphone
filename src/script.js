@@ -23,6 +23,7 @@ function root() {
   return {
     mode: 'microphone',
     modes: ['microphone', 'speaker'],
+    showHelp: false,
 
     async init() {
       ipfs = await Ipfs.create(ipfsOptions)
@@ -31,6 +32,10 @@ function root() {
     async tabChanged(tab) {
       const emoji = tab == 'microphone' ? '🎙' : '🔊'
       document.title = emoji + document.title.substr(2)
+    },
+
+    toggleHelp() {
+      this.showHelp = !this.showHelp
     }
   }
 }
@@ -60,14 +65,14 @@ function microphone() {
   return {
     STATES,
     state: STATES.IDLE,
-    stateIcon: 'help',
+    stateIcon: 'play_arrow',
     target: '',
 
     setState(newState) {
       this.state = newState
       switch (newState) {
         case STATES.IDLE:
-          this.stateIcon = 'help'
+          this.stateIcon = 'play_arrow'
           document.getElementById('streaming').checked = false
           break;
         case STATES.CONNECTING:
@@ -161,14 +166,14 @@ function speaker() {
   return {
     STATES,
     state: STATES.IDLE,
-    stateIcon: 'help',
+    stateIcon: 'hearing',
     source: '',
 
     setState(newState) {
       this.state = newState
       switch (newState) {
         case STATES.IDLE:
-          this.stateIcon = 'help'
+          this.stateIcon = 'hearing'
           document.getElementById('listening').checked = false
           break;
         case STATES.CONNECTING:

@@ -14,75 +14,94 @@
 </head>
 <body>
   <main x-data="webmic.root()" x-init="init" class="container">
-    <div class="segmented-control">
-      <template x-for="m in modes">
-        <div>
-          <input x-model="mode" type="radio" :value="m" :id="m" x-on:change="tabChanged($event.target.value)" />
-          <label :for="m" :class="`tab-${m}`">
-            <p x-text="m"></p>
-          </label>
+    <template x-if="!showHelp">
+      <div>
+        <div class="segmented-control">
+          <template x-for="m in modes">
+            <div>
+              <input x-model="mode" type="radio" :value="m" :id="m" x-on:change="tabChanged($event.target.value)" />
+              <label :for="m" :class="`tab-${m}`">
+                <p x-text="m"></p>
+              </label>
+            </div>
+          </template>
+          <div :class="`segmented-control__color selected-${mode}`"></div>
         </div>
-      </template>
-      <div :class="`segmented-control__color selected-${mode}`"></div>
-    </div>
 
-    <template x-if="mode == 'microphone'">
-      <div x-data="webmic.microphone()" class="microphone">
-        <div class="circle">
-          <input type="checkbox" x-on:change="applyStreamStatus($event.target.checked)" id="streaming" />
-          <label for="streaming">
-            <i class="material-icons">mic_none</i>
-          </label>
-          <span class="circle__back-1"></span>
-          <span class="circle__back-2"></span>
-        </div>
-        <div class="chip">
-          <div class="chip__icon">
-            <i class="material-icons" x-text="stateIcon"></i>
+        <template x-if="mode == 'microphone'">
+          <div x-data="webmic.microphone()" class="microphone">
+            <div class="circle">
+              <input type="checkbox" x-on:change="applyStreamStatus($event.target.checked)" id="streaming" />
+              <label for="streaming">
+                <i class="material-icons">mic_none</i>
+              </label>
+              <span class="circle__back-1"></span>
+              <span class="circle__back-2"></span>
+            </div>
+            <div class="chip">
+              <div class="chip__icon">
+                <i class="material-icons" x-text="stateIcon"></i>
+              </div>
+              <template x-if="state == STATES.IDLE">
+                <p>Tap above to start streaming</p>
+              </template>
+              <template x-if="state == STATES.CONNECTING">
+                <p>Connecting...</p>
+              </template>
+              <template x-if="state == STATES.LOOKING_FOR_RECEIVERS">
+                <p>Looking for receivers...</p>
+              </template>
+              <template x-if="state == STATES.STREAMING">
+                <p>Streaming to <strong x-text="target"></strong></p>
+              </template>
+            </div>
           </div>
-          <template x-if="state == STATES.IDLE">
-            <p>Tap above to start streaming</p>
-          </template>
-          <template x-if="state == STATES.CONNECTING">
-            <p>Connecting...</p>
-          </template>
-          <template x-if="state == STATES.LOOKING_FOR_RECEIVERS">
-            <p>Looking for receivers...</p>
-          </template>
-          <template x-if="state == STATES.STREAMING">
-            <p>Streaming to <strong x-text="target"></strong></p>
-          </template>
-        </div>
+        </template>
+        <template x-if="mode == 'speaker'">
+          <div x-data="webmic.speaker()" class="speaker">
+            <div class="circle">
+              <input type="checkbox" x-on:change="applyListenStatus($event.target.checked)" id="listening" />
+              <label for="listening">
+                <i class="material-icons">volume_up</i>
+              </label>
+              <span class="circle__back-1"></span>
+              <span class="circle__back-2"></span>
+            </div>
+            <div class="chip">
+              <div class="chip__icon">
+                <i class="material-icons" x-text="stateIcon"></i>
+              </div>
+              <template x-if="state == STATES.IDLE">
+                <p>Tap above to start listening</p>
+              </template>
+              <template x-if="state == STATES.CONNECTING">
+                <p>Connecting...</p>
+              </template>
+              <template x-if="state == STATES.LOOKING_FOR_SENDERS">
+                <p>Looking for senders...</p>
+              </template>
+              <template x-if="state == STATES.LISTENING">
+                <p>Listening from <strong x-text="source"></strong></p>
+              </template>
+            </div>
+            <audio></audio>
+          </div>
+        </template>
       </div>
     </template>
-    <template x-if="mode == 'speaker'">
-      <div x-data="webmic.speaker()" class="speaker">
-        <div class="circle">
-          <input type="checkbox" x-on:change="applyListenStatus($event.target.checked)" id="listening" />
-          <label for="listening">
-            <i class="material-icons">volume_up</i>
-          </label>
-          <span class="circle__back-1"></span>
-          <span class="circle__back-2"></span>
-        </div>
-        <div class="chip">
-          <div class="chip__icon">
-            <i class="material-icons" x-text="stateIcon"></i>
-          </div>
-          <template x-if="state == STATES.IDLE">
-            <p>Tap above to start listening</p>
-          </template>
-          <template x-if="state == STATES.CONNECTING">
-            <p>Connecting...</p>
-          </template>
-          <template x-if="state == STATES.LOOKING_FOR_SENDERS">
-            <p>Looking for senders...</p>
-          </template>
-          <template x-if="state == STATES.LISTENING">
-            <p>Listening from <strong x-text="source"></strong></p>
-          </template>
-        </div>
-        <audio></audio>
+    <template x-if="showHelp">
+      <div class="help">
+        <p><strong>WebMic</strong> is a small application that works in a web browser (both mobile and desktop) and allows you to send audio from the microphone to another device.</p>
+        <h1>How to use it?</h1>
+        <p>
+          Once you open it on the device you want to use as a microphone, tap the big <strong>microphone</strong> button and the app will start looking for another app that is set to be "a speaker".<br />
+        </p>
+        <p>
+          Next, open the app on another device, select <strong>speaker</strong> and then click/tap the big <strong>speaker button</strong>. The two apps will try to find each other and once they do, the status below the button will confirm it's streaming.
+        </p>
+        <h1>Is it safe?</h1>
+        <p>Transmission from microphone to the speaker is encrypted and goes straight from device to device, without any servers in between, so there's no way to record it or listen in on the conversation.</p>
+        <p>That being said, currently the way the microphone finds the speaker and vice versa is quite simple and in case of many users at once, it could connect to the wrong microphone/speaker. This happens by design to make it simpler and not to require any codes, passwords etc. but might need to change in the future. For now it's recommended to make sure if you're connected to the mic/speaker that you wanted and if not, try connecting again.</p>
       </div>
     </template>
 
@@ -98,8 +117,13 @@
         </div>
       </a>
       <a href="https://www.producthunt.com/@suda" target="_blank" rel="noopener" title="Product Hunt">
-        <div class="icon__help">
+        <div class="icon__ph">
           <i class="fab fa-product-hunt"></i>
+        </div>
+      </a>
+      <a x-on:click="toggleHelp()">
+        <div :class="showHelp ? 'icon__help pressed' : 'icon__help'">
+          <i class="fas fa-question-circle"></i>
         </div>
       </a>
     </div>
