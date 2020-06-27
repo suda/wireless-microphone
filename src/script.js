@@ -1,4 +1,3 @@
-import Ipfs from '../node_modules/ipfs/dist/index.min.js'
 import platform from 'platform'
 import 'alpinejs'
 import './style.css'
