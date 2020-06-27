@@ -1,0 +1,29 @@
+{
+  "name": "webmic",
+  "version": "0.1.0",
+  "description": "Turn any device into a wireless microphone",
+  "main": "src/script.js",
+  "scripts": {
+    "build": "rollup --config"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/suda/webmic.git"
+  },
+  "author": "Wojtek @suda Siudzinski",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/suda/webmic/issues"
+  },
+  "homepage": "https://github.com/suda/webmic#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.1",
+    "alpinejs": "^2.4.1",
+    "ipfs": "^0.46.0",
+    "platform": "^1.3.5",
+    "rollup": "^2.18.0",
+    "rollup-plugin-postcss": "^3.1.2",
+    "rollup-plugin-uglify": "^6.0.4"
+  }
+}

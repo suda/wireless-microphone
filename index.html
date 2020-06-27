@@ -3,19 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="Description" content="Turn any device into a wireless microphone">
   <title>🎙 Web Microphone</title>
-  <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>
-  <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/platform/platform.js" defer></script>
-  <script src="https://kit.fontawesome.com/90bede2e6a.js" crossorigin="anonymous"></script>
-  <script async src="https://ackee.appsome.dev/tracker.js" data-ackee-server="https://ackee.appsome.dev" data-ackee-domain-id="6c323544-6b6f-42ec-8a80-51ef8abababb"></script>
-  <link href="style.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="dist/bundle.js" defer></script>
+  <script src="https://kit.fontawesome.com/90bede2e6a.js" crossorigin="anonymous" defer></script>
+  <script src="https://ackee.appsome.dev/tracker.js" data-ackee-server="https://ackee.appsome.dev" data-ackee-domain-id="6c323544-6b6f-42ec-8a80-51ef8abababb" async></script>
 </head>
 <body>
-  <div x-data="root()" x-init="init" class="container">
+  <main x-data="webmic.root()" x-init="init" class="container">
     <div class="segmented-control">
       <template x-for="m in modes">
         <div>
@@ -29,7 +24,7 @@
     </div>
 
     <template x-if="mode == 'microphone'">
-      <div x-data="microphone()" class="microphone">
+      <div x-data="webmic.microphone()" class="microphone">
         <div class="circle">
           <input type="checkbox" x-on:change="applyStreamStatus($event.target.checked)" id="streaming" />
           <label for="streaming">
@@ -58,7 +53,7 @@
       </div>
     </template>
     <template x-if="mode == 'speaker'">
-      <div x-data="speaker()" class="speaker">
+      <div x-data="webmic.speaker()" class="speaker">
         <div class="circle">
           <input type="checkbox" x-on:change="applyListenStatus($event.target.checked)" id="listening" />
           <label for="listening">
@@ -89,22 +84,22 @@
     </template>
 
     <div class="icon">
-      <a href="https://github.com/suda/webmic" target="_blank">
+      <a href="https://github.com/suda/webmic" target="_blank" rel="noopener" title="Source code on GitHub">
         <div class="icon__github">
           <i class="fab fa-github"></i>
         </div>
       </a>
-      <a href="https://twitter.com/suda" target="_blank">
+      <a href="https://twitter.com/suda" target="_blank" rel="noopener" title="Twitter">
         <div class="icon__twitter">
           <i class="fab fa-twitter"></i>
         </div>
       </a>
-      <a href="https://www.producthunt.com/@suda" target="_blank">
+      <a href="https://www.producthunt.com/@suda" target="_blank" rel="noopener" title="Product Hunt">
         <div class="icon__help">
           <i class="fab fa-product-hunt"></i>
         </div>
       </a>
     </div>
-  </div>
+  </main>
 </body>
 </html>
