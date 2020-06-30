@@ -30,8 +30,9 @@ function root() {
     },
 
     async tabChanged(tab) {
-      const emoji = tab == 'microphone' ? '🎙' : '🔊'
-      document.title = emoji + document.title.substr(2)
+      document.querySelectorAll('link[rel=icon]').forEach(e => {
+        e.href = e.href.replace(tab == 'microphone' ? 'speaker' : 'microphone', tab);
+      });
     },
 
     toggleHelp() {
