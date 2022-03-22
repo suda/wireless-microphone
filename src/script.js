@@ -3,17 +3,21 @@ import 'alpinejs'
 import './style.css'
 
 const iceServers = [
-  { urls: 'stun://stun.stunprotocol.org' },
-  { urls: 'stun://stun.services.mozilla.com' }
+  { urls: 'stun:stun.stunprotocol.org:3478' },
+  { urls: 'stun:stun.freeswitch.org:3478' }
 ]
 
 const ipfsOptions = {
   repo: String(Math.random() + Date.now()),
   config: {
     Addresses: {
-      "Swarm": ['/dns4/agile-chamber-63538.herokuapp.com/tcp/443/wss/p2p-webrtc-star/'], 
-      "Bootstrap": [] 
+      'Swarm': ['/dns4/agile-chamber-63538.herokuapp.com/tcp/443/wss/p2p-webrtc-star/'], 
+      'Bootstrap': [] 
     }
+  },
+  init: {
+    emptyRepo: true,
+    algorithm: 'ed25519',
   }
 }
 
