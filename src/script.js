@@ -1,6 +1,8 @@
 import platform from 'platform'
-import 'alpinejs'
+import Alpine from 'alpinejs'
 import './style.css'
+
+window.Alpine = Alpine
 
 const iceServers = [
   { urls: 'stun:stun.stunprotocol.org:3478' },
@@ -30,7 +32,11 @@ function root() {
     showHelp: false,
 
     async init() {
-      ipfs = await Ipfs.create(ipfsOptions)
+      try {
+        ipfs = await Ipfs.create(ipfsOptions)
+      } catch (error) {
+        console.error(error)
+      }
     },
 
     async tabChanged(tab) {
