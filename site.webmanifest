@@ -1,6 +1,6 @@
 {
-  "name": "Web Microphone",
-  "short_name": "WebMic",
+  "name": "Wireless Microphone",
+  "short_name": "Wireless Mic",
   "icons": [
     {
       "src": "/res/android-chrome-192x192.png",

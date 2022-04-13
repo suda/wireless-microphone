@@ -1,5 +1,5 @@
 {
-  "name": "webmic",
+  "name": "wireless-microphone",
   "version": "0.1.1",
   "description": "Turn any device into a wireless microphone",
   "main": "src/script.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/suda/webmic.git"
+    "url": "git+https://github.com/suda/wireless-microphone.git"
   },
   "author": "Wojtek @suda Siudzinski",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/suda/webmic/issues"
+    "url": "https://github.com/suda/wireless-microphone/issues"
   },
-  "homepage": "https://github.com/suda/webmic#readme",
+  "homepage": "https://github.com/suda/wireless-microphone#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.0.1",
