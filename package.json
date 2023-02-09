@@ -20,7 +20,7 @@
     "@rollup/plugin-commonjs": "^21.0.3",
     "@rollup/plugin-node-resolve": "^13.2.0",
     "alpinejs": "^3.9.6",
-    "ipfs": "^0.62.2",
+    "ipfs": "^0.65.0",
     "platform": "^1.3.6",
     "postcss": "^8.4.12",
     "rollup": "^2.70.1",
